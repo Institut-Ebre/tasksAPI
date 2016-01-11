@@ -12,6 +12,18 @@ use Response;
 
 class TagController extends Controller
 {
+    protected $tagTransformer;
+
+    /**
+     * TagController constructor.
+     * @param $tagTransformer
+     */
+    public function __construct(TagTransformer $tagTransformer)
+    {
+        $this->tagTransformer = $tagTransformer;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -26,11 +38,10 @@ class TagController extends Controller
 
         $tags = Tag::all();
 
-        $transformer = new TagTransformer();
 
         return Response::json(
 
-            $transformer->transformCollection($tags),
+            $this->tagTransformer->transformCollection($tags),
             200
         );
     }
@@ -80,10 +91,8 @@ class TagController extends Controller
             );
         }
 
-        $transformer = new TagTransformer();
-
         return Response::json(
-            $transformer->transform($tag),
+            $this->tagTransformer->transform($tag),
             200
         );
 

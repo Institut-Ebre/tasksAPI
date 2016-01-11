@@ -109,7 +109,7 @@ class TaskController extends Controller
         return [
             'id'    => $task['id'],
             'title' => $task['title'],
-            'created'    => $tag['created_at'],
+            'created'    => $task['created_at'],
             //'updated_at'    => $tag['updated_at']
         ];
     }
