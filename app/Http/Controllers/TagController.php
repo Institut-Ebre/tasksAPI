@@ -26,7 +26,7 @@ class TagController extends Controller
         $tags = Tag::all();
 
         return Response::json(
-            $tags->toArray(),
+            $this->transform($tags),
             200
         );
     }
@@ -127,5 +127,27 @@ class TagController extends Controller
     {
         $tag->name = $request->name;
         $tag->save();
+    }
+
+    private function transform($tags)
+    {
+        return array_map(function($tag){
+                return [
+                    //'id'    => $tag['id'],
+                    'title' => $tag['name']
+                ];
+            },
+            $tags->toArray()
+        );
+//        $result = array();
+//        foreach ($tags as $tagbd) {
+//            $tag = array();
+//
+//            $tag['title'] =  $tagbd['title'];
+//            $tag['body'] =  $tagbd['body'];
+//
+//            $result[]= tag;
+//        }
+//        return $result;
     }
 }
