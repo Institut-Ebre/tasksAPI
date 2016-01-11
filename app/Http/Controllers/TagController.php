@@ -62,8 +62,24 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        return Tag::findOrFail($id);
+        //return Tag::findOrFail($id);
         //$tag = Tag::where('id',$id)->first();
+
+        $tag = Tag::find($id);
+
+        if ( !$tag ) {
+            Response::json([
+                    'error' => 'Tag does not exists'
+                ],
+                404
+            );
+        }
+
+        return Response::json(
+            $tag->toArray(),
+            200
+        );
+
     }
 
     /**
