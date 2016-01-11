@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tag;
+use App\Transformers\TagTransformer;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -25,8 +26,11 @@ class TagController extends Controller
 
         $tags = Tag::all();
 
+        $transformer = new TagTransformer();
+
         return Response::json(
-            $this->transformCollection($tags),
+
+            $transformer->transformCollection($tags),
             200
         );
     }
@@ -76,8 +80,10 @@ class TagController extends Controller
             );
         }
 
+        $transformer = new TagTransformer();
+
         return Response::json(
-            $this->transform($tag),
+            $transformer->transform($tag),
             200
         );
 
@@ -127,32 +133,5 @@ class TagController extends Controller
     {
         $tag->name = $request->name;
         $tag->save();
-    }
-
-    private function transform($tag)
-    {
-        return [
-            //'id'    => $tag['id'],
-            'title' => $tag['name'],
-            //'created'    => $tag['created_at'],
-            //'updated_at'    => $tag['updated_at']
-        ];
-    }
-
-    private function transformCollection($tags)
-    {
-        return array_map([$this,'transform'],
-            $tags->toArray()
-        );
-//        $result = array();
-//        foreach ($tags as $tagbd) {
-//            $tag = array();
-//
-//            $tag['title'] =  $tagbd['title'];
-//            $tag['body'] =  $tagbd['body'];
-//
-//            $result[]= tag;
-//        }
-//        return $result;
     }
 }

@@ -103,4 +103,31 @@ class TaskController extends Controller
 
         $task->save();
     }
+
+    private function transform($task)
+    {
+        return [
+            'id'    => $task['id'],
+            'title' => $task['title'],
+            'created'    => $tag['created_at'],
+            //'updated_at'    => $tag['updated_at']
+        ];
+    }
+
+    private function transformCollection($tasks)
+    {
+        return array_map([$this,'transform'],
+            $tasks->toArray()
+        );
+//        $result = array();
+//        foreach ($tasks as $tagbd) {
+//            $tag = array();
+//
+//            $tag['title'] =  $tagbd['title'];
+//            $tag['body'] =  $tagbd['body'];
+//
+//            $result[]= tag;
+//        }
+//        return $result;
+    }
 }
