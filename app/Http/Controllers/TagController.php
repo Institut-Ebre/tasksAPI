@@ -65,6 +65,7 @@ class TagController extends Controller
         //return Tag::findOrFail($id);
         //$tag = Tag::where('id',$id)->first();
 
+        // 2. No way to attach metadata SOLVED:
         $tag = Tag::find($id);
 
         if ( !$tag ) {
