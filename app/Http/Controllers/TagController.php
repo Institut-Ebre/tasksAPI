@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Response;
 
 class TagController extends Controller
 {
@@ -17,7 +18,17 @@ class TagController extends Controller
      */
     public function index()
     {
-        return Tag::all();
+//        1. All is bad
+//        2. No way to attach metadata
+//        3. Linking database structure to the api output
+//        4. No way to signal headers/response codes
+
+        $tags = Tag::all();
+
+        return Response::json(
+            $tags->toArray(),
+            200
+        );
     }
 
     /**

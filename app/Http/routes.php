@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::resource('task', 'TaskController');
 Route::resource('tag', 'TagController');
+
