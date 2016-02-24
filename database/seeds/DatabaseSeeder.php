@@ -17,15 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
         // $this->call(UserTableSeeder::class);
 
         $faker = Faker\Factory::create();
         $this->seedTasks($faker);
         $this->seedTags($faker);
-
-        Model::reguard();
     }
 
     private function seedTasks($faker)
