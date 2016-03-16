@@ -95,6 +95,7 @@ class TagsAPITest extends TestCase
         $tag = $this->createFakeTag();
         $data = [ 'name' => 'Learn Laravel', 'done' => false , 'priority' => 3];
         $this->put('/tag/' . $tag->id, $data)->seeInDatabase('tags',$data);
+        // $this->post('/tag',$data)->seeInDatabase('tags',$data);
         $this->get('/tag')->seeJsonContains($data)->seeStatusCode(200);
     }
 

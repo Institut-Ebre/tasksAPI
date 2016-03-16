@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
+
 /**
  * Class TasksAPITest
  */
@@ -17,6 +18,16 @@ class TasksAPITest extends TestCase
     public function testTasksUseJson()
     {
         $this->get('/task')->seeJson()->seeStatusCode(200);
+    }
+
+    /**
+     *
+     *
+     * @return void
+     */
+    public function testTasksReturn404OnTaskNotExists()
+    {
+        $this->get('/task/500000')->seeJson()->seeStatusCode(404);
     }
 
     /**
