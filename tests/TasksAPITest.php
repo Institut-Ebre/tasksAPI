@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 /**
@@ -12,7 +13,7 @@ class TasksAPITest extends TestCase
 
     /**
      * Test tasks is an api then returns JSON
-     *
+     * @group failing4
      * @return void
      */
     public function testTasksUseJson()
@@ -32,13 +33,15 @@ class TasksAPITest extends TestCase
 
     /**
      * Test tasks in database are listed by API
-     *
+     * @group provamil
      * @return void
      */
     public function testTasksInDatabaseAreListedByAPI()
     {
         $this->createFakeTasks();
-        $this->get('/task')
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)->get('/task')->dump()
             ->seeJsonStructure([
                 '*' => [
                     'name', 'done','priority'
@@ -125,4 +128,39 @@ class TasksAPITest extends TestCase
         $this->delete('/task/' . $task->id)->notSeeInDatabase('tasks',$data);
         $this->get('/task')->dontSeeJson($data)->seeStatusCode(200);
     }
+
+    /**
+     * Test tasks
+     * @group failingno
+     * @return void
+     */
+    public function testTasksXXXXXX()
+    {
+            $this->visit('task')->seePageIs('auth/login')->see("API");
+    }
+
+    /**
+     * Test tasks
+     * @group failing
+     * @return void
+     */
+    public function testTasksYYY()
+    {
+        $this->get('/task');
+    }
+
+    /**
+     * Test tasks
+     * @group failing5
+     * @return void
+     */
+    public function testTasksZZZ()
+    {
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user,'api')->visit('task');
+    }
+
+
+
 }
